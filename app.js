@@ -1,8 +1,9 @@
 const express = require('express')
-const session = reuiqre('express-session')
+const session = require('express-session')
 const exphbs = require('express-handlebars')
 const methodOverride = require('method-override')
 const router = require('./routes')
+const usePassport = require('./config/passport')
 require('./config/mongoose')
 
 const app = express()
@@ -19,6 +20,8 @@ app.use(session({
 app.use(router)
 
 app.use(methodOverride('_method'))
+
+usePassport(app)
 
 app.listen(3000, () => {
   console.log('App is running on http://localhost:3000')
