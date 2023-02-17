@@ -27,4 +27,26 @@ router.post('/new', async (req, res) => {
   }
 })
 
+router.get('/:id/edit', async(req, res) => {
+  try{
+    const _id = req.params.id
+    const userId = req.user._id
+    const record = await Record.findOne({ _id, userId }).lean()
+    res.render('edit', { record })
+  } catch(err) {
+    console.log(err)
+  }
+})
+
+router.put('/:id', async (req, res) => {
+  try {
+    const _id = req.params.id
+    const userId = req.user._id
+    await Record.findOneAndUpdate({ _id, userId }, req.body).lean()
+    res.redirect(`/`) 
+  } catch (err) {
+    console.log(err)
+  }
+})
+
 module.exports = router
