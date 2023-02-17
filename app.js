@@ -3,7 +3,7 @@ const session = require('express-session')
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
-const router = require('./routes')
+const routes = require('./routes')
 const usePassport = require('./config/passport')
 require('./config/mongoose')
 
@@ -19,11 +19,12 @@ app.use(session({
 }))
 
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(router)
 
 app.use(methodOverride('_method'))
 
 usePassport(app)
+
+app.use(routes)
 
 app.listen(3000, () => {
   console.log('App is running on http://localhost:3000')
