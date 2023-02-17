@@ -9,9 +9,9 @@ router.get('/new', (req, res) => {
 
 router.post('/new', async (req, res) => {
   async function findOrCreate(name) {
-    const found = await Category.findOne({ name }).lean()
+    const found = await Category.findOne({ name })
     if (!found) {
-      const create = await Category.create({ name }).lean()
+      const create = await Category.create({ name })
       return create
     }
     return found
@@ -45,6 +45,17 @@ router.put('/:id', async (req, res) => {
     await Record.findOneAndUpdate({ _id, userId }, req.body).lean()
     res.redirect(`/`) 
   } catch (err) {
+    console.log(err)
+  }
+})
+
+router.delete('/:id', async (req, res) => {
+  try{
+    const _id = req.params.id
+    const userId = req.user._id
+    await Record.findOneAndDelete({ _id, userId })
+    res.redirect('/')
+  } catch(err) {
     console.log(err)
   }
 })
