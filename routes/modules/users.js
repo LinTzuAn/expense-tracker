@@ -8,13 +8,23 @@ router.get('/login', (req, res) => {
   res.render('login')
 })
 
-router.post('/login', passport.authenticate('local', {
+router.post('/login', 
+  (req, res, next) => {
+    const { email, password } = req.body
+    if (!email || !password) {
+      req.flash('warning_msg', 'Please enter email and password')
+      return res.redirect('/users/login')
+    }
+    next()
+  },
+  passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/users/login'
 }))
 
 router.get('/logout', (req, res) => {
   req.logout()
+  req.flash('success_msg', 'You have been logout successfully')
   res.redirect('/users/login')
 })
 
