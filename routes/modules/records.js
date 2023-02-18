@@ -1,4 +1,5 @@
 const express = require('express')
+const dayjs = require('dayjs')
 const router = express.Router()
 const Record = require('../../models/record')
 const Category = require('../../models/category')
@@ -53,6 +54,7 @@ router.get('/filter', async (req, res) => {
       total += records[i].amount
     }
     total = total.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+    records.forEach(record => record.date = dayjs(record.date).format('YYYY-MM-DD'))
     res.render('index', { records, filterSelected, total })
   } catch(err) {
     console.log(err)
@@ -64,7 +66,8 @@ router.get('/:id/edit', async(req, res) => {
     const _id = req.params.id
     const userId = req.user._id
     const record = await Record.findOne({ _id, userId }).lean()
-    res.render('edit', { record })
+    const date = dayjs(record.date).format('YYYY-MM-DD')
+    res.render('edit', { record, date })
   } catch(err) {
     console.log(err)
   }

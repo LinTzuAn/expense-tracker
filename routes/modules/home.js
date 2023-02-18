@@ -1,4 +1,5 @@
 const express = require('express')
+const dayjs = require('dayjs')
 const router = express.Router()
 const Record = require('../../models/record')
 
@@ -11,6 +12,7 @@ router.get('/', async (req, res) => {
       total += records[i].amount
     }
     total = total.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+    records.forEach(record => record.date = dayjs(record.date).format('YYYY-MM-DD'))
     res.render('index', { records, total })
   } catch (err) {
     console.log(err)
