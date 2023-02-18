@@ -12,9 +12,9 @@
   </form>
 </div>
 
-<ul class="list-group">
-  {{#each records}}
-  <li class="list-group-item">
+<div>
+  
+  {{!-- <li class="list-group-item">
     <div class="row">
       <div class="col-auto me-auto d-flex align-items-center">
         <h4 style="display: inline; margin-bottom: 0px; margin-left: 10px;">
@@ -28,6 +28,23 @@
         </form>
       </div>
     </div>
-  </li>
-  {{/each}}
-</ul>
+  </li> --}}
+  <table class="table table-hover">
+    <tbody>
+    {{#each records}}
+      <tr>
+        <td><i class="fa-solid {{this.categoryId.icon}}"></i></td>
+        <td>{{this.name}}</td>
+        <td>{{this.date}}</td>
+        <td>{{this.amount}}</td>
+        <td><a class="btn btn-success" href="/records/{{ this._id }}/edit">edit</a></td>
+        <td>
+          <form action="/records/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
+            <button class="btn btn-danger" type="submit">delete</button>
+          </form>
+        </td>
+      </tr>
+    {{/each}}  
+    </tbody>
+
+</div>
