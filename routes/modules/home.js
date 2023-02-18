@@ -5,7 +5,7 @@ const Record = require('../../models/record')
 router.get('/', async (req, res) => {
   try {
     const userId = req.user._id
-    const records = await Record.find({ userId }).lean()
+    let records = await Record.find({ userId }).populate('categoryId').lean()
     res.render('index', {records})
   } catch (err) {
     console.log(err)
