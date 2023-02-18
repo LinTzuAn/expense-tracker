@@ -5,8 +5,12 @@ const Record = require('../../models/record')
 router.get('/', async (req, res) => {
   try {
     const userId = req.user._id
-    let records = await Record.find({ userId }).populate('categoryId').lean()
-    res.render('index', {records})
+    const records = await Record.find({ userId }).populate('categoryId').lean()
+    let total = 0
+    for (let i = 0; i < records.length; i++) {
+      total += records[i].amount
+    }
+    res.render('index', {records, total})
   } catch (err) {
     console.log(err)
   }

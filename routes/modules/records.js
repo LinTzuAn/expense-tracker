@@ -48,7 +48,11 @@ router.get('/filter', async (req, res) => {
     const category = await Category.findOne(filter[option])
     const categoryId = category._id
     const records = await Record.find({ categoryId, userId }).populate('categoryId').lean()
-    res.render('index', { records, filterSelected })
+    let total = 0
+    for (let i = 0; i < records.length; i++) {
+      total += records[i].amount
+    }
+    res.render('index', { records, filterSelected, total })
   } catch(err) {
     console.log(err)
   }
