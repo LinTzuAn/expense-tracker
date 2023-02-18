@@ -13,6 +13,7 @@ router.get('/', async (req, res) => {
     }
     total = total.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
     records.forEach(record => record.date = dayjs(record.date).format('YYYY-MM-DD'))
+    records.forEach(record => record.amount = record.amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' }))
     res.render('index', { records, total })
   } catch (err) {
     console.log(err)

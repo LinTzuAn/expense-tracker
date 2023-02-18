@@ -55,6 +55,7 @@ router.get('/filter', async (req, res) => {
     }
     total = total.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
     records.forEach(record => record.date = dayjs(record.date).format('YYYY-MM-DD'))
+    records.forEach(record => record.amount = record.amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' }))
     res.render('index', { records, filterSelected, total })
   } catch(err) {
     console.log(err)
@@ -66,8 +67,8 @@ router.get('/:id/edit', async(req, res) => {
     const _id = req.params.id
     const userId = req.user._id
     const record = await Record.findOne({ _id, userId }).lean()
-    const date = dayjs(record.date).format('YYYY-MM-DD')
-    res.render('edit', { record, date })
+    record.date = dayjs(record.date).format('YYYY-MM-DD')
+    res.render('edit', { record })
   } catch(err) {
     console.log(err)
   }

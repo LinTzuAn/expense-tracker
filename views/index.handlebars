@@ -26,7 +26,6 @@
             <tr>
               <th scope="col">Category</th>
               <th scope="col">Description</th>
-              <th scope="col">Date</th>
               <th scope="col">Amount</th>
               <th scope="col">Edit</th>
               <th scope="col">Delete</th>
@@ -35,10 +34,9 @@
           <tbody>
           {{#each records}}
             <tr>
-              <td><i class="fa-solid {{this.categoryId.icon}}"></i></td>
-              <td>{{this.name}}</td>
-              <td>{{this.date}}</td>
-              <td>{{this.amount}}</td>
+              <td><h4><i class="fa-solid {{this.categoryId.icon}}"></i></h4></td>
+              <td><h4>{{this.name}}</h4><small>{{this.date}}</small></td>
+              <td><h4>{{this.amount}}</h4></td>
               <td><a href="/records/{{ this._id }}/edit"><i class="fa-solid fa-pen-to-square"></i></a></td>
               <td>
                 <form action="/records/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
