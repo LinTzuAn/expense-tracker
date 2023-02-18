@@ -8,19 +8,19 @@
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 
-<body>
+<body style="background-color: #c8eff9;">
   <header>
-    <nav class="navbar navbar-dark justify-content-between" style="padding: 8px 16px; background-color: #646464;">
-      <a class="navbar-brand" href="/">家庭記事本</a>
+    <nav class="navbar navbar-dark justify-content-between" style="padding: 8px 16px; background-color: #022449;">
+      <a class="navbar-brand" href="/" style="color:#ffffff">Expense-tracker</a>
       {{#if isAuthenticated}}
-      <a class="btn btn-outline-light" href="/users/logout">Logout</a>
+      <a class="btn" href="/users/logout" style="background-color:#f27d42; color:#022449">Logout</a>
       {{else}}
-      <a class="btn btn-outline-light" href="/users/login">Login</a>
+      <a class="btn" href="/users/login" style="background-color:#f27d42; color:#022449">Login</a>
       {{/if}}
     </nav>
   </header>
   <main>
-    <div class="container mt-3">
+    <div class="container mt-3" >
       {{{ body }}}
     </div>
   </main>

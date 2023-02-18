@@ -1,22 +1,20 @@
 <div class='container'>
   <div class="row">
-   
-      <h3 class='mx-auto text-center'>請輸入您的支出</h3>
-    
+      <h3 class='mx-auto text-center'>Create Entries</h3> 
     <div class='col-md-4 mt-3 mx-auto'>
       <form action="/records/new" method="POST">
         <div class="mb-3 d-flex">
-          <label for="name" class="input-group-text">名稱*</label>
+          <label for="name" class="input-group-text">Description*</label>
           <input type="text" id="name" name="name" class="form-control" required>
         </div>
         <div class='mb-3 d-flex'>
-          <label for='date' class='input-group-text'>日期*</label>
+          <label for='date' class='input-group-text'>Date*</label>
           <input type='date' name='date' class='form-control' id='date' required>
         </div>
         <div class='mb-3 d-flex'>
-          <label for='category' class='input-group-text'>類別*</label>
+          <label for='category' class='input-group-text'>Category*</label>
           <select class="form-select" name="category" id="category" aria-label="Example select with button addon" required>
-            <option selected>Choose...</option>
+            <option ></option>
             <option value="家居物業">家居物業</option>
             <option value="交通出行">交通出行</option>
             <option value="休閒娛樂">休閒娛樂</option>
@@ -25,11 +23,12 @@
           </select>
         </div>
         <div class="mb-3 d-flex">
-          <label for="amount" class="input-group-text">金額*</label>
+          <label for="amount" class="input-group-text">Amount*</label>
           <input type="number" id="amount" name="amount" class="form-control" min="1" required>
         </div>
-        <div class="d-flex justify-content-center">
-          <button type='submit' class='btn btn-info mt-3 ' style="width: 16rem;">Create</button>
+        <div class="d-grid col-6 mx-auto">
+          <button type='submit' class='btn btn-info mt-3 ' style="width: 16rem; background-color: #55bdca">Create</button>
+          <a href="/" class="btn btn-light mt-2" style="width: 16rem;">Back</a>
         </div>
       </form>
     </div>

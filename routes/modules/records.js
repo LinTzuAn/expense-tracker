@@ -52,6 +52,7 @@ router.get('/filter', async (req, res) => {
     for (let i = 0; i < records.length; i++) {
       total += records[i].amount
     }
+    total = total.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
     res.render('index', { records, filterSelected, total })
   } catch(err) {
     console.log(err)

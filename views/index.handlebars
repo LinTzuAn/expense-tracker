@@ -1,50 +1,55 @@
-<a href="/records/new" class="btn btn-primary mb-3">Create</a>
-<div class="mb-3">
-  <form action="/records/filter">
-    <select class="form-select" name="category" id="filter" onchange="this.form.submit()">
-      <option {{#if filterSelected.default}} selected {{/if}} value="default">類別</option>
-      <option {{#if filterSelected.a}} selected {{/if}} value="a">家居物業</option>
-      <option {{#if filterSelected.b}} selected {{/if}} value="b">交通出行</option>
-      <option {{#if filterSelected.c}} selected {{/if}} value="c">休閒娛樂</option>
-      <option {{#if filterSelected.d}} selected {{/if}} value="d">餐飲食品</option>
-      <option {{#if filterSelected.e}} selected {{/if}} value="e">其他</option>
-    </select>
-  </form>
-</div>
-
-<div>
-  
-  {{!-- <li class="list-group-item">
-    <div class="row">
-      <div class="col-auto me-auto d-flex align-items-center">
-        <h4 style="display: inline; margin-bottom: 0px; margin-left: 10px;">
-          {{this.name}}
-        </h4>
-      </div>
-      <div class="col-auto">
-        <a class="btn btn-success" href="/records/{{ this._id }}/edit">edit</a>
-        <form action="/records/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
-          <button class="btn btn-danger" type="submit">delete</button>
+<div class="container">
+  <div class="row">
+    <div class="col-8 mx-auto">
+      <a href="/records/new" class="btn btn-primary mb-3" style="background-color: #022449;">Create</a>
+      <div class="mb-3">
+        <form action="/records/filter">
+          <select class="form-select" name="category" id="filter" onchange="this.form.submit()">
+            <option {{#if filterSelected.default}} selected {{/if}} value="default">Filter</option>
+            <option {{#if filterSelected.a}} selected {{/if}} value="a">家居物業</option>
+            <option {{#if filterSelected.b}} selected {{/if}} value="b">交通出行</option>
+            <option {{#if filterSelected.c}} selected {{/if}} value="c">休閒娛樂</option>
+            <option {{#if filterSelected.d}} selected {{/if}} value="d">餐飲食品</option>
+            <option {{#if filterSelected.e}} selected {{/if}} value="e">其他</option>
+          </select>
         </form>
       </div>
-    </div>
-  </li> --}}
-  <table class="table table-hover">
-    <tbody>
-    {{#each records}}
-      <tr>
-        <td><i class="fa-solid {{this.categoryId.icon}}"></i></td>
-        <td>{{this.name}}</td>
-        <td>{{this.date}}</td>
-        <td>{{this.amount}}</td>
-        <td><a class="btn btn-success" href="/records/{{ this._id }}/edit">edit</a></td>
-        <td>
-          <form action="/records/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
-            <button class="btn btn-danger" type="submit">delete</button>
-          </form>
-        </td>
-      </tr>
-    {{/each}}  
-    </tbody>
 
+      <div class="d-flex justify-content-end">
+        
+        <h1 >{{total}}</h1>
+      </div>
+
+      <div>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Category</th>
+              <th scope="col">Description</th>
+              <th scope="col">Date</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Edit</th>
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+          {{#each records}}
+            <tr>
+              <td><i class="fa-solid {{this.categoryId.icon}}"></i></td>
+              <td>{{this.name}}</td>
+              <td>{{this.date}}</td>
+              <td>{{this.amount}}</td>
+              <td><a href="/records/{{ this._id }}/edit"><i class="fa-solid fa-pen-to-square"></i></a></td>
+              <td>
+                <form action="/records/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
+                  <button class="btn" type="submit"><i class="fa-solid fa-trash-can"></i></button>
+                </form>
+              </td>
+            </tr>
+          {{/each}}  
+          </tbody>
+
+      </div>
+    </div>
+  </div>
 </div>
