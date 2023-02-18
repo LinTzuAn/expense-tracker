@@ -47,7 +47,7 @@ router.get('/filter', async (req, res) => {
     const userId = req.user._id
     const category = await Category.findOne(filter[option])
     const categoryId = category._id
-    const records = await Record.find({ categoryId, userId }).lean()
+    const records = await Record.find({ categoryId, userId }).populate('categoryId').lean()
     res.render('index', { records, filterSelected })
   } catch(err) {
     console.log(err)
@@ -59,7 +59,6 @@ router.get('/:id/edit', async(req, res) => {
     const _id = req.params.id
     const userId = req.user._id
     const record = await Record.findOne({ _id, userId }).lean()
-    console.log('record', record)
     res.render('edit', { record })
   } catch(err) {
     console.log(err)
@@ -70,7 +69,10 @@ router.put('/:id', async (req, res) => {
   try {
     const _id = req.params.id
     const userId = req.user._id
-    await Record.findOneAndUpdate({ _id, userId }, req.body).lean()
+    const { name, date, category, amount } = req.body
+    const cate = await Category.findOne({name: category}).lean()
+    const categoryId = cate._id
+    await Record.findOneAndUpdate({ _id, userId }, { name, date, category, amount, categoryId })
     res.redirect(`/`) 
   } catch (err) {
     console.log(err)
