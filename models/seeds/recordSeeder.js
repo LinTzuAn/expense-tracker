@@ -2,7 +2,7 @@ const Record = require('../record')
 const User = require('../user')
 const Category = require('../category')
 const db = require('../../config/mongoose')
-const category = require('../category')
+const bcrypt = require('bcryptjs')
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
@@ -23,7 +23,12 @@ const SEED_RECORD = {
 
 db.once('open', async () => {
   try {
-    const newUser = await User.create(SEED_USER)
+    const hash = await bcrypt.hash(SEED_USER.password, 10)
+    const newUser = await User.create({
+      name: SEED_USER.name,
+      email: SEED_USER.email,
+      password: hash
+    })
     const categoryItem = await Category.findOne({ name: SEED_RECORD.category})
     SEED_RECORD.userId = newUser._id
     SEED_RECORD.categoryId = categoryItem._id
