@@ -27,11 +27,39 @@ router.post('/new', async (req, res) => {
   }
 })
 
+router.get('/filter', async (req, res) => {
+  try {
+    const option = req.query.category 
+
+    if (option === 'default') {
+      return res.redirect('/')
+    }
+  
+    const filter = {
+      default: {},
+      a: {name: '家居物業'},
+      b: {name: '交通出行'},
+      c: {name: '休閒娛樂'},
+      d: {name: '餐飲食品'},
+      e: {name: '其他'},
+    }
+    const filterSelected = {[option]: true}
+    const userId = req.user._id
+    const category = await Category.findOne(filter[option])
+    const categoryId = category._id
+    const records = await Record.find({ categoryId, userId }).lean()
+    res.render('index', { records, filterSelected })
+  } catch(err) {
+    console.log(err)
+  }
+})
+
 router.get('/:id/edit', async(req, res) => {
   try{
     const _id = req.params.id
     const userId = req.user._id
     const record = await Record.findOne({ _id, userId }).lean()
+    console.log('record', record)
     res.render('edit', { record })
   } catch(err) {
     console.log(err)

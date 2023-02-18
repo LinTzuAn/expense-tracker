@@ -1,4 +1,17 @@
 <a href="/records/new" class="btn btn-primary mb-3">Create</a>
+<div class="mb-3">
+  <form action="/records/filter">
+    <select class="form-select" name="category" id="filter" onchange="this.form.submit()">
+      <option {{#if filterSelected.default}} selected {{/if}} value="default">類別</option>
+      <option {{#if filterSelected.a}} selected {{/if}} value="a">家居物業</option>
+      <option {{#if filterSelected.b}} selected {{/if}} value="b">交通出行</option>
+      <option {{#if filterSelected.c}} selected {{/if}} value="c">休閒娛樂</option>
+      <option {{#if filterSelected.d}} selected {{/if}} value="d">餐飲食品</option>
+      <option {{#if filterSelected.e}} selected {{/if}} value="e">其他</option>
+    </select>
+  </form>
+</div>
+
 <ul class="list-group">
   {{#each records}}
   <li class="list-group-item">
